@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-language" content="en">
+	<meta name="description" content="Search for your favorite music artists and tracks on Spotify to see what is available">
+	<title>Search music on Spotify</title>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/reset-fonts-grids/reset-fonts-grids.css">
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/yui/2.8.2/build/base/base-min.css">
+	<link rel="stylesheet" type="text/css" href="/static/style.css">
+  </head>
+  <body>
+  <div id="doc">
+	<div id="hd">
+	<span>
+	<form method="get" id="search">
+		<h1>Search music on Spotify</h1> 
+		<input type="text" name="q" class="query" value="{{q}}">
+		<input type="hidden" name="type" value="{% if type %}{{type}}{% else %}track{% endif %}">
+		<input type="submit" value="search"> 
+	</form>
+	<ul id="searchfilter">
+		<li class="{% if type == 'track' %}current{% endif %}"><a href="/?{% if q %}q={{q}}&{% endif %}type=track">Tracks</a></li>
+		<li class="{% if type == 'artist' %}current{% endif %}"><a href="/?{% if q %}q={{q}}&{% endif %}type=artist">Artists</a></li>
+		<li class="last {% if type == 'album' %}current{% endif %}"><a href="/?{% if q %}q={{q}}&{% endif %}type=album">Albums</a></li>
+	</ul>
+	</span>
+	</div>
+	
+	<div id="bd">
+	
+	{% if q %}
+	<div class="results">
+	{% if not results.items %}
+		{% if error %}
+		<em> We are sorry but an error happened while querying for &ldquo;{{q}}&rdquo;. This is temporary and due to exceeded quota.</em>
+		{% else %}
+		<em>Your search for &ldquo;{{ results.search_terms }}&rdquo; did not match anything on Spotify.</em>
+		{% endif %}
+	{% endif %}
+	{% if results.items %}
+		{% if type == "track" %}
+			<h2>Track results for &ldquo;{{ results.search_terms }}&rdquo;</h2>
+			<table class="items">
+				<tr class="header"><th>Track</th><th>Artist</th><th>Duration</th><th>Popularity</th></tr>
+			{% for item in results.items %}	    
+				<tr class="{{ loop.cycle('row1','row2') }}"><td class="track"<a href="{{ item.href }}" title="{{ item.name }}">{{ item.name|truncate(60) }}</a></td><td class="artist"><a href="{{ item.artist_href }}" title="{{ item.artist_name }}">{{ item.artist_name|truncate(20) }}</a></td><td class="duration">{{ item.duration_str }}</td><td><div class="popularity"><div style='width:{{ item.popularity }}%;'></div></div></td></tr>
+			{% endfor %}
+			</table>
+		{% endif  %}
+		{% if type == "artist" %}
+			<h2>Artist results for &ldquo;{{ results.search_terms }}&rdquo;</h2>
+			<table class="items">
+				<tr class="header"><th>Artist</th><th>Popularity</th></tr>
+			{% for item in results.items %}	    
+				<tr class="{{ loop.cycle('row1','row2') }}"><td class="artist"<a href="{{ item.href }}" title="{{ item.name }}">{{ item.name|truncate(60) }}</a></td><td><div class="popularity"><div style='width:{{ item.popularity }}%;'></div></div></td></tr>
+			{% endfor %}
+			</table>
+		{% endif  %}	
+		{% if type == "album" %}
+			<h2>Track results for &ldquo;{{ results.search_terms }}&rdquo;</h2>
+			<table class="items">
+				<tr class="header"><th>Album</th><th>Artist</th><th>Popularity</th></tr>
+			{% for item in results.items %}	    
+				<tr class="{{ loop.cycle('row1','row2') }}"><td class="album"<a href="{{ item.href }}" title="{{ item.name }}">{{ item.name|truncate(60) }}</a></td><td class="artist"><a href="{{ item.artist_href }}" title="{{ item.artist_name }}">{{ item.artist_name|truncate(20) }}</a></td><td><div class="popularity"><div style='width:{{ item.popularity }}%;'></div></div></td></tr>
+			{% endfor %}
+			</table>
+		{% endif  %}
+	{% endif %}
+	</div>
+	{% else %}
+		<h3>What is it ?</h3>
+		<p><a href="http://www.spotify.com">Spotify</a> offers you legal and free access to a huge library of music through a streaming player. Friends and I have been enjoying
+		this service for some time and after the announcement that it was now available in France, I could only notice that something was
+		missing to help potential users figure out quickly if their favorite artists/tracks were available on Spotify. Indeed there is
+		no public search easily accessible from the website. So now here it is and enjoy it.</p>
+		
+		<p>Please keep in mind that this site is not operated by, sponsored by, endorsed by, or affiliated with Spotify in any way, so do
+		not contact Spotify about it if something is not working. :-)</p>
+		
+		<!--h3>Any details on how it is done ?</h3>
+		<p>
+		For the technically curious, this is a very simple <a href="http://www.python.org">Python</a> web application hosted on <a href="http://code.google.com/appengine/">Google App Engine</a>. It uses the Spotify metadata API
+		and cache results in memcached for a certain period of time in a best effort to increase response time and decrease request rate on Spotify servers which is limited at 10 requests per second per ip.
+		</p-->
+	{% endif %}
+	
+	</div>
+    </div>
+	
+	<div id="ft">
+		<p>Hosted on Google App Engine. Use of Spotify Metadata API and Yahoo! YUI CSS.  The hidden individual behind all this is <a href="http://www.bearaway.org/">Stephane Bailliez</a></p>
+		<em>This site is not operated by, sponsored by, endorsed by, or affiliated with Spotify in any way. The official Spotify site is <a href="http://www.spotify.com">www.spotify.com</a>.</em>
+	</div>
+	
+  </body>
+</html>

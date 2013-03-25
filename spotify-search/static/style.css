@@ -1,0 +1,114 @@
+html {
+	background-color: #474747;
+
+}
+
+body {
+	color: #e1e1e1;
+	font-family:verdana,sansserif;
+}
+
+#search {
+	
+}
+
+#search .query {
+	border: 1px solid #cccccc;
+	width: 300px;
+	line-height: 1.5;
+}
+
+#hd {
+	margin-bottom: 30px;
+}
+
+.duration {
+	text-align:right;
+	color: #888888;
+}
+
+.popularity {
+    width:50px;
+    height:10px;
+    background:#5e5e5e;
+}
+.popularity div {
+    height:10px;
+    background:#e1e1e1;
+}
+
+.items, .items tr, .items tr td, .items tr th {
+	border: none;
+	font-size: 96%;
+}
+
+.items {
+	padding-left: 1em;
+	padding-right: 1em;
+	width: 100%;
+}
+
+.items th {
+	background-color:#929292;
+	color:black;
+}
+
+.items tr td{
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+.row1 {
+	background-color: #313131;
+}
+
+.row2 {
+	background-color: #373737;
+}
+
+a:link, a:visited {
+	color: #e1e1e1;
+	text-decoration:none;
+}
+
+a:hover, a:active {
+	color:white;
+	text-decoration: underline;
+}
+
+#searchfilter {
+	margin-top: 0pt;
+	margin-right: 0pt;
+	margin-bottom: 10px;
+	margin-left: 10%;
+	width: 60%;
+	text-align: left;
+}
+
+#searchfilter li {
+    display: inline;
+}
+
+#searchfilter li a {
+    padding: 0 0.5em 0 0.2em;
+    border-right: 1px solid #b7b7b7;
+    line-height: 1.25;
+}
+
+#searchfilter li.current a {
+    color: #888888;
+	text-decoration:none;
+}
+
+#searchfilter li.last a {
+    border-right: 0;
+}
+
+
+#ft {
+	margin-top:30px;
+	padding-top: 5px;
+	border-top: 1px solid  #cccccc;
+	font-size:smaller;
+	text-align:left;
+}
